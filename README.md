@@ -15,3 +15,13 @@ Desarrollado en C# para el curso de Programación I - Ingeniería de Sistemas - 
 3. Descuento del 5% si distancia mayor a 15 km
 4. Tarifa mínima de S/ 5.00
 5. Redondeo a 2 decimales
+
+________________________________________________________
+
+## Casos de prueba
+| # | Nombre | Distancia | Hora | Vehículo | Resultado esperado |
+|---|--------|-----------|------|----------|--------------------|
+| 1 | Ana García | 8 km | 14 | Económico | S/ 14.00 |
+| 2 | Carlos López | 5 km | 8 | Confort | S/ 16.90 |
+| 3 | María Torres | 20 km | 12 | Premium | S/ 61.75 |
+| 4 | Luis Mendoza | 1 km | 12 | Moto | S/ 5.00 |
