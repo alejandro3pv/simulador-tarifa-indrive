@@ -11,19 +11,35 @@ class SimuladorTarifa
         Console.Write("Nombre del pasajero    : ");
         string nombre = Console.ReadLine();
 
-        Console.Write("Distancia del viaje (km): ");
-        double distancia = double.Parse(Console.ReadLine());
+        double distancia;
+        int hora;
+        int tipoVehiculo;
 
-        Console.Write("Hora de salida (0 - 23) : ");
-        int hora = int.Parse(Console.ReadLine());
+        // Regla 2 — Registro y validación de cada viaje
 
-        Console.WriteLine("\nTipo de vehículo:");
-        Console.WriteLine("  1. Económico");
-        Console.WriteLine("  2. Confort");
-        Console.WriteLine("  3. Premium");
-        Console.WriteLine("  4. Moto");
-        Console.Write("Seleccione opción       : ");
-        int tipoVehiculo = int.Parse(Console.ReadLine());
+        while (true)
+        {
+            Console.Write("Distancia del viaje (km): ");
+            distancia = double.Parse(Console.ReadLine());
+
+            Console.Write("Hora de salida (0 - 23) : ");
+            hora = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("\nTipo de vehículo:");
+            Console.WriteLine("  1. Económico");
+            Console.WriteLine("  2. Confort");
+            Console.WriteLine("  3. Premium");
+            Console.WriteLine("  4. Moto");
+            Console.Write("Seleccione opción       : ");
+            tipoVehiculo = int.Parse(Console.ReadLine());
+
+            if (EsValido(distancia, hora, tipoVehiculo))
+            {
+                break;
+            }
+
+            Console.WriteLine("\n⚠ Datos inválidos. Verifica: distancia > 0, hora entre 0-23, vehículo entre 1-4.\n");
+        }
 
         double tarifaFinal = CalcularTarifa(distancia, hora, tipoVehiculo);
 
@@ -34,6 +50,15 @@ class SimuladorTarifa
     static bool EsHoraPico(int hora)
     {
         return (hora >= 7 && hora <= 9) || (hora >= 17 && hora <= 20);
+    }
+
+    // Valida que los datos de entrada de un viaje sean correctos
+    static bool EsValido(double distancia, int hora, int tipoVehiculo)
+    {
+        if (distancia <= 0) return false;
+        if (hora < 0 || hora > 23) return false;
+        if (tipoVehiculo < 1 || tipoVehiculo > 4) return false;
+        return true;
     }
 
     // Calcula la tarifa final de un viaje según distancia, hora y tipo de vehículo
@@ -60,10 +85,6 @@ class SimuladorTarifa
                 tarifaBase = 1.50;
                 costoKm = 1.00;
                 break;
-            default:
-                Console.WriteLine("\nOpción no válida. Fin del programa.");
-                Environment.Exit(0);
-                break;
         }
 
         double subtotal = tarifaBase + (costoKm * distancia);
@@ -85,51 +106,5 @@ class SimuladorTarifa
 
         return tarifaFinal;
     }
-}
-
-Regla 1 — Cantidad de viajes
-
-Console.Write("¿Cuántos viajes realizaste hoy? ");
-int n = int.Parse(Console.ReadLine());
-
-for (int i = 0; i < n; i++)
-{
-    ...
-}
-
-Regla 2 — Registro y validación de cada viaje
-
-while (true)
-{
-    Console.Write("Distancia del viaje (km): ");
-    distancia = double.Parse(Console.ReadLine());
-
-    Console.Write("Hora de salida (0 - 23) : ");
-    hora = int.Parse(Console.ReadLine());
-
-    Console.WriteLine("\nTipo de vehículo:");
-    Console.WriteLine("  1. Económico");
-    Console.WriteLine("  2. Confort");
-    Console.WriteLine("  3. Premium");
-    Console.WriteLine("  4. Moto");
-    Console.Write("Seleccione opción        : ");
-    tipoVehiculo = int.Parse(Console.ReadLine());
-
-    if (EsValido(distancia, hora, tipoVehiculo))
-    {
-        break;
-    }
-
-    Console.WriteLine("\n⚠ Datos inválidos. Verifica: distancia > 0, hora entre 0-23, vehículo entre 1-4.\n");
-}
-
-tarifas[i] = CalcularTarifa(distancia, hora, tipoVehiculo);
-
-static bool EsValido(double distancia, int hora, int tipoVehiculo)
-{
-    if (distancia <= 0) return false;
-    if (hora < 0 || hora > 23) return false;
-    if (tipoVehiculo < 1 || tipoVehiculo > 4) return false;
-    return true;
 }
 
