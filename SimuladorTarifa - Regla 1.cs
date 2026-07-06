@@ -86,3 +86,13 @@ class SimuladorTarifa
         return tarifaFinal;
     }
 }
+
+Regla 1 — Cantidad de viajes
+
+Console.Write("¿Cuántos viajes realizaste hoy? ");
+int n = int.Parse(Console.ReadLine());
+
+for (int i = 0; i < n; i++)
+{
+    ...
+}
